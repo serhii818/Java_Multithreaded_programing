@@ -44,10 +44,13 @@ public class CTaskManager {
                     quit = true;
                     break;
                 case "run":
+                case "run_ctask":
+                case "run_task":
                     option_run(command_spl);
                     break;
                 case "show":
                 case "show_task":
+                case "show_ctask":
                 case "state":
                 case "get_state":
                 case "show_state":
@@ -60,12 +63,16 @@ public class CTaskManager {
                     break;
                 case "get":
                 case "get_result":
+                case "result":
                     option_get(command_spl);
                     break;
                 case "help":
                 case "/h":
                 case "?":
-                   option_help();
+                    option_help();
+                    break;
+                case "clear":
+                    option_clear();
                     break;
                 default:
                     System.out.println(ASCII.RED + "COMMAND UNRECOGNIZED" + ASCII.RESET);
@@ -153,6 +160,15 @@ public class CTaskManager {
         }
     }
 
+    private void option_clear() {
+        for (Integer n: tasks.keySet()) {
+            cancel(n);
+        }
+        results.clear();
+        tasks.clear();
+        threads.clear();
+    }
+
     private void option_help() {
         System.out.println(ASCII.CYAN + ASCII.ITALIC);
         System.out.println("Syntax:");
@@ -162,15 +178,25 @@ public class CTaskManager {
         System.out.println("Commands:");
         System.out.println("    run <int> - runs CTask");
         System.out.println("    run <int> <int> ... - runs multiple CTasks");
+        System.out.println("        run aliases: run_ctask, run_task");
+        System.out.println();
         System.out.println("    show <int> - shows CTask");
         System.out.println("    show <int> <int> ... - shows multiple CTasks");
         System.out.println("    show all - shows all CTasks");
+        System.out.println("        show aliases: show_task, show_ctask, state, get_state, show_state");
+        System.out.println();
         System.out.println("    get <int> - gets CResult");
         System.out.println("    get <int> <int> ... - gets multiple CResults");
         System.out.println("    get all - gets all CResults");
+        System.out.println("        get aliases: get_result, result");
+        System.out.println();
         System.out.println("    cancel <int> - cancels CTask");
         System.out.println("    cancel <int> <int> ... - cancels multiple CTasks");
-        System.out.println("    quit - quits session");
+        System.out.println("        cancel aliases: cancel_task, cancel_ctask");
+        System.out.println();
+        System.out.println("    quit, exit - quits session");
+        System.out.println("    help, /h, ? - prints help");
+        System.out.println("    clear - deletes results and tasks from list");
         System.out.println(ASCII.RESET);
     }
 
