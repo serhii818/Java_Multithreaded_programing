@@ -85,6 +85,10 @@ public class CTaskManager {
     }
 
     private void option_run(String[] command_spl) {
+        if (command_spl.length <= 1) {
+            System.out.println(ASCII.RED + "TOO FEW ARGUMENTS" + ASCII.RESET);
+            return;
+        };
         for (int i = 1; i < command_spl.length; i++) {
             Integer n = -1;
             try {
@@ -99,6 +103,10 @@ public class CTaskManager {
     }
 
     private void option_show(String[] command_spl) {
+        if (command_spl.length <= 1) {
+            System.out.println(ASCII.RED + "TOO FEW ARGUMENTS" + ASCII.RESET);
+            return;
+        };
         if (command_spl[1].equals("all")) {
             for (Integer n: tasks.keySet()) {
                 print_state(n);
@@ -119,6 +127,10 @@ public class CTaskManager {
     }
 
     private void option_get(String[] command_spl) {
+        if (command_spl.length <= 1) {
+            System.out.println(ASCII.RED + "TOO FEW ARGUMENTS" + ASCII.RESET);
+            return;
+        };
         if (command_spl[1].equals("all")) {
             for (Integer n: tasks.keySet()) {
                 print_result(n);
@@ -141,6 +153,10 @@ public class CTaskManager {
     }
 
     private void option_cancel(String[] command_spl) {
+        if (command_spl.length <= 1) {
+            System.out.println(ASCII.RED + "TOO FEW ARGUMENTS" + ASCII.RESET);
+            return;
+        };
         if (command_spl[1].equals("all")) {
             for (Integer n: tasks.keySet()) {
                 cancel(n);
