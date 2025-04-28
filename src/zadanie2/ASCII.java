@@ -1,5 +1,8 @@
 package zadanie2;
 
+/**
+ * ASCII color codes for purpose of beauty
+ */
 public class ASCII {
     // Reset
     public static final String RESET = "\u001B[0m";

@@ -4,15 +4,20 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Manager for FutureCTasks
+ * Has test method for quick testing of work
+ * Has runSession for interactive management
+ *
+ * run_ctask(int) - creates and runst task
+ * print_state(int) - prints state of task
+ * print_result(int) - print the result, when task is create empty result are created
+ * cancel(int) - calces the task
+ */
 public class CTaskManager {
-
-
-
-    // #################################################################################################################
     private ConcurrentHashMap<Integer, CResult> results = new ConcurrentHashMap<>();
     private HashMap<Integer, FutureCTask> tasks = new HashMap<>();
     private HashMap<Integer, Thread> threads = new HashMap<>();
-
 
     /**
      * console like interface to manage task
@@ -76,7 +81,7 @@ public class CTaskManager {
         for (int i = 1; i < command_spl.length; i++) {
             Integer n = -1;
             try {
-                n = Integer.valueOf(command_spl[1]);
+                n = Integer.valueOf(command_spl[i]);
             } catch (NumberFormatException ex) {
                 System.out.println(ASCII.RED);
                 System.out.println(ex.getMessage());
@@ -95,7 +100,7 @@ public class CTaskManager {
             for (int i = 1; i < command_spl.length; i++) {
                 Integer n = -1;
                 try {
-                    n = Integer.valueOf(command_spl[1]);
+                    n = Integer.valueOf(command_spl[i]);
                 } catch (NumberFormatException ex) {
                     System.out.println(ASCII.RED);
                     System.out.println(ex.getMessage());
@@ -107,17 +112,25 @@ public class CTaskManager {
     }
 
     private void option_get(String[] command_spl) {
-        for (int i = 1; i < command_spl.length; i++) {
-            Integer n = -1;
-            try {
-                n = Integer.valueOf(command_spl[1]);
-            } catch (NumberFormatException ex) {
-                System.out.println(ASCII.RED);
-                System.out.println(ex.getMessage());
-                System.out.println(ASCII.RESET);
+        if (command_spl[1].equals("all")) {
+            for (Integer n: tasks.keySet()) {
+                print_result(n);
             }
-            print_result(n);
+        } else  {
+            for (int i = 1; i < command_spl.length; i++) {
+                Integer n = -1;
+                try {
+                    n = Integer.valueOf(command_spl[i]);
+                } catch (NumberFormatException ex) {
+                    System.out.println(ASCII.RED);
+                    System.out.println(ex.getMessage());
+                    System.out.println(ASCII.RESET);
+                }
+                print_result(n);
+            }
         }
+
+
     }
 
     private void option_cancel(String[] command_spl) {
@@ -151,8 +164,10 @@ public class CTaskManager {
         System.out.println("    run <int> <int> ... - runs multiple CTasks");
         System.out.println("    show <int> - shows CTask");
         System.out.println("    show <int> <int> ... - shows multiple CTasks");
+        System.out.println("    show all - shows all CTasks");
         System.out.println("    get <int> - gets CResult");
         System.out.println("    get <int> <int> ... - gets multiple CResults");
+        System.out.println("    get all - gets all CResults");
         System.out.println("    cancel <int> - cancels CTask");
         System.out.println("    cancel <int> <int> ... - cancels multiple CTasks");
         System.out.println("    quit - quits session");
@@ -164,23 +179,36 @@ public class CTaskManager {
         System.out.println("write " + ASCII.BLINK + ASCII.PURPLE + " help " + ASCII.RESET + " for commands");
     }
 
-    public void test() {
-        run_ctask(63_728_127);
-        print_result(63_728_127);
-        print_state(63_728_127);
-        run_ctask(63_728);
-        run_ctask(64);
-        cancel(63_728);
+    private void mgr_wait(int time) {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(time);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void test() {
+        run_ctask(-1);
+        run_ctask(63_728_127);
+
+        print_result(63_728_127);
+        print_state(63_728_127);
+
+        run_ctask(63_728);
+        run_ctask(64);
+        cancel(63_728);
+
+        mgr_wait(1000);
+
         print_result(63_728_127);
         print_result(63_728);
         print_result(64);
         print_state(1);
         print_result(1);
+        print_state(-1);
+        print_result(-1);
+
+        print_state_all();
     }
 
     public void run_ctask(Integer n) {
@@ -197,6 +225,12 @@ public class CTaskManager {
         FutureCTask task = tasks.get(n);
         if (task != null) System.out.println(task.toString());
         else System.out.println(ASCII.YELLOW + "TASK " + n + " DOESN'T EXIST" + ASCII.RESET);
+    }
+
+    public void print_state_all() {
+        for (Integer n: tasks.keySet()) {
+            print_state(n);
+        }
     }
 
     public void print_result(Integer n) {

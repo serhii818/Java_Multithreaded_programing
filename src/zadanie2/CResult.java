@@ -1,5 +1,8 @@
 package zadanie2;
 
+/**
+ * Container for results of CTask
+ */
 public class CResult {
     public enum Type {
         SUCCESS,
@@ -24,11 +27,6 @@ public class CResult {
         this.max = max;
         this.size = size;
         this.type = type;
-    }
-
-
-    public static CResult make(Integer n0, Integer max, Integer size, Type type) {
-        return new CResult(n0, max, size, type);
     }
 
     @Override

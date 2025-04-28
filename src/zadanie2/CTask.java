@@ -24,12 +24,12 @@ public class CTask implements Callable<CResult> {
         this.limit = limit;
     }
 
+    /**
+     * returns CResult mid calculation in case task is interupted
+     * @return CResult
+     */
     public CResult getRawData() {
         return new CResult(n0, max, size, CResult.Type.EMPTY);
-    }
-
-    public Integer getLimit() {
-        return limit;
     }
 
     @Override
@@ -61,7 +61,6 @@ public class CTask implements Callable<CResult> {
                 return new CResult(n0, max, size, CResult.Type.REACHED_LIMIT);
             }
         }
-
 
         return new CResult(n0, max, size, CResult.Type.SUCCESS);
     }

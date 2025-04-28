@@ -4,6 +4,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
+/**
+ * Class based on FutureTask
+ * after CTask is done in done method puts result in shared ConcurentHashMap of results
+ */
 public class FutureCTask extends FutureTask<CResult> {
     private final ConcurrentHashMap<Integer, CResult> results;
     private final CTask task;
@@ -38,7 +42,8 @@ public class FutureCTask extends FutureTask<CResult> {
         CResult data = task.getRawData();
         State state = state();
         return ASCII.CYAN + "Task " + ASCII.RESET + " : " + data.n0 + ", size reached : " + data.size + ", state : " +
-                ((state == State.CANCELLED || state == State.FAILED) ? ASCII.RED : ASCII.GREEN) +
+                ((state == State.CANCELLED || state == State.FAILED) ? ASCII.RED : (
+                        state == State.RUNNING ? ASCII.BLUE : ASCII.GREEN)) +
                 state + ASCII.RESET;
     }
 }
