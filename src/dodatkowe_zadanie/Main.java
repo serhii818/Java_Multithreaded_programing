@@ -20,7 +20,7 @@ public class Main {
                 String name = Thread.currentThread().getName();
                 System.out.println(name + " zaczyna pracę");
                 try {
-                    Thread.sleep((int)(3000 + finalI *1000));
+                    Thread.sleep(3000 + finalI *1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -51,7 +51,7 @@ public class Main {
                 String name = Thread.currentThread().getName();
                 System.out.println(name + " zaczyna pracę");
                 try {
-                    Thread.sleep((int)(3000 + finalI *1000));
+                    Thread.sleep(3000 + finalI *1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -85,7 +85,7 @@ public class Main {
                 String name = Thread.currentThread().getName();
                 System.out.println(name + " zaczyna pracę");
                 try {
-                    Thread.sleep((int)(3000 + finalI *1000));
+                    Thread.sleep(3000 + finalI *1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
